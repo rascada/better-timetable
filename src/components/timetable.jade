@@ -8,7 +8,7 @@
   .timetable
     .column.bells
       .row Dzwonki
-      .row(v-for='bell of bells') {{ bell[0] }}
+      .row(v-for='bell of bells') {{ $index + 1 + '. ' }} {{ bell[0] }}
     .column(v-for='($i, day) of tb')
       .row.title {{ days[$i]}}
       .row(
