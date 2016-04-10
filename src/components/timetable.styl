@@ -1,0 +1,70 @@
+@import '~flexstyl/flex';
+
+.timetableWrap
+  flex styl
+  flex column
+  flex center
+
+  nav
+    color teal
+    flex styl
+    flex center
+
+    p
+      margin 0
+
+    h1
+      margin 0 .5em
+      font-size 2.5em
+
+    p, select
+      font-size 2em
+      color teal
+
+    select
+      background none
+      border none
+      outline none
+      cursor pointer
+
+.timetable
+  flex line
+  background #fff
+  overflow hidden
+  border-radius .25em
+  box-shadow 0 .1em .3em rgba(#000, .4)
+
+  .column
+    flex styl
+    flex column
+    color #444
+
+    .row
+      padding .5em
+      text-align center
+
+      div
+        color teal
+        flex styl
+        justify around
+
+      &.active
+        color teal
+        font-weight bold
+
+  .bells .row
+    flex styl
+    flex center
+    height 2em
+
+    &:first-child
+      height auto
+
+  .title, .bells
+    font-weight bold
+    color #fff
+
+    .row, &.row
+      margin 0
+      padding .75em
+      background teal

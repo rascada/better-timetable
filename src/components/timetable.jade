@@ -1,0 +1,22 @@
+.timetableWrap
+  nav
+    h1 3tb
+    p grupa
+    select(v-model='group')
+      option 1
+      option 2
+  .timetable
+    .column.bells
+      .row Dzwonki
+      .row(v-for='bell of bells') {{ bell[0] }}
+    .column(v-for='($i, day) of tb')
+      .row.title {{ days[$i]}}
+      .row(
+        track-by="$index"
+        :class='{active: $index === actualLesson - 1 && $i === today - 1}'
+        v-for='lesson of day'
+      )
+        span {{ lesson.subject | removeGroup }}
+        div
+          span {{ lesson.room }}
+          span {{ lesson.teacher }}
