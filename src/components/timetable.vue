@@ -34,7 +34,7 @@ export default {
     Object.assign(this, localStorage);
     this.detectLesson();
 
-    fetch('http://onnexus.ddns.net:8070')
+    fetch('http://zslt-api.thatonly.me/')
       .then(res => res.json())
       .then(this.tagLessons)
       .then(this.rotate)
