@@ -34,7 +34,7 @@ export default {
     Object.assign(this, localStorage);
     this.detectLesson();
 
-    fetch('http://localhost:8070')
+    fetch('http://onnexus.ddns.net:8070')
       .then(res => res.json())
       .then(this.tagLessons)
       .then(this.rotate)
