@@ -9,11 +9,14 @@
     .column.bells
       .row Dzwonki
       .row(v-for='bell of bells') {{ $index + 1 + '. ' }} {{ bell[0] }}
-    .column(v-for='($i, day) of tb')
+    .column(
+        v-for='($i, day) of tb' 
+        :class='{ today: $i === today - 1}'
+      )
       .row.title {{ days[$i]}}
       .row(
         track-by="$index"
-        :class='{active: $index === actualLesson - 1 && $i === today - 1}'
+        :class='{ full: lesson.subject, today: $index === actualLesson - 1, active: $index === actualLesson - 1 && $i === today - 1 }'
         v-for='lesson of day'
       )
         span {{ lesson.subject | removeGroup }}

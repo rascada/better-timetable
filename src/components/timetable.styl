@@ -34,14 +34,21 @@
   border-radius .25em
   box-shadow 0 .1em .3em rgba(#000, .4)
 
+  .today
+    background rgba(teal, .2)
+
   .column
     flex styl
-    flex column
     color #444
+    flex column
+    border-right .1em solid teal
 
     .row
-      padding .5em
+      padding .5em .75em
       text-align center
+
+      &.full
+        border-bottom .1em solid teal
 
       div
         color teal
@@ -54,11 +61,11 @@
 
   .bells .row
     flex styl
+    flex grow
     flex center
-    height 2em
 
     &:first-child
-      height auto
+      flex nogrow
 
   .title, .bells
     font-weight bold
