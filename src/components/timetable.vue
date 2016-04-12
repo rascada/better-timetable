@@ -71,7 +71,15 @@ export default {
 
   methods: {
     time(str) {
-      return moment(`11-05-1997 ${str}`);
+      return moment(`${moment().format('YYYY-MM-DD')} ${str}`);
+    },
+
+    detectLesson() {
+      this.actualLesson = this.whichLesson();
+    },
+
+    tagLessons(timetable) {
+      return timetable.map(day => day.map(this.lesson));
     },
 
     whichLesson() {
@@ -86,10 +94,6 @@ export default {
       return lesson;
     },
 
-    detectLesson() {
-      this.actualLesson = this.whichLesson();
-    },
-
     lesson(lesson) {
       const type = typeof lesson;
 
@@ -98,10 +102,6 @@ export default {
       }
 
       return { subject: '' };
-    },
-
-    tagLessons(timetable) {
-      return timetable.map(day => day.map(this.lesson));
     },
 
     rotate(timetable) {
