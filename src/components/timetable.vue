@@ -43,7 +43,7 @@ export default {
     Object.assign(this, localStorage);
     this.detectLesson();
 
-    fetch('http://localhost:8070/lista')
+    fetch('http://zslt-api.thatonly.me/lista')
       .then(res => res.json())
       .then(list => {
         this.timetables = list;
@@ -90,7 +90,7 @@ export default {
     fetchTimetable() {
       this.error = '';
 
-      fetch(`http://localhost:8070/plan/${this.timetables.indexOf(this.selectedTimetable) + 1}`)
+      fetch(`http://zslt-api.thatonly.me/plan/${this.timetables.indexOf(this.selectedTimetable) + 1}`)
         .then(res => res.json())
         .then(this.tagLessons)
         .then(this.rotate)
