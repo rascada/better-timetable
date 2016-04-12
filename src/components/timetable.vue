@@ -12,8 +12,11 @@ export default {
       days,
       bells,
       group: 1,
+      error: '',
       timetable: [],
+      timetables: [],
       actualLesson: 0,
+      selectedTimetable: '',
       today: moment().day(),
     };
   },
@@ -21,6 +24,12 @@ export default {
   watch: {
     group(group) {
       localStorage.group = group;
+    },
+
+    selectedTimetable(name) {
+      localStorage.selectedTimetable = name;
+
+      this.fetchTimetable();
     },
   },
 
@@ -34,19 +43,15 @@ export default {
     Object.assign(this, localStorage);
     this.detectLesson();
 
-    fetch('http://zslt-api.thatonly.me/')
+    fetch('http://localhost:8070/lista')
       .then(res => res.json())
-      .then(this.tagLessons)
-      .then(this.rotate)
-      .then(this.decorate)
-      .then(tb => this.timetable = tb);
+      .then(list => {
+        this.timetables = list;
+        this.fetchTimetable();
+      });
   },
 
   computed: {
-    diag() {
-      return JSON.stringify(this.timetable);
-    },
-
     tb() {
       return this.timetable
         .map(column =>
@@ -80,6 +85,25 @@ export default {
 
     tagLessons(timetable) {
       return timetable.map(day => day.map(this.lesson));
+    },
+
+    fetchTimetable() {
+      this.error = '';
+
+      fetch(`http://localhost:8070/plan/${this.timetables.indexOf(this.selectedTimetable) + 1}`)
+        .then(res => res.json())
+        .then(this.tagLessons)
+        .then(this.rotate)
+        .then(this.decorate)
+        .then(tb => this.timetable = tb)
+        .then(tb => {
+          if (!tb.length) this.error = 'Sposób zapisu planu jest chwilowo niewspierany';
+        })
+        .catch(() => {
+          if (this.selectedTimetable !== 'wybierz plan') {
+            this.error = 'Sposób zapisu planu jest chwilowo niewspierany';
+          }
+        });
     },
 
     whichLesson() {

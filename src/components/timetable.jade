@@ -1,6 +1,11 @@
 .timetableWrap
   nav
-    h1 3tb
+    select(v-model='selectedTimetable')
+      option(disabled selected) wybierz plan
+      option(
+          v-for='class of timetables'
+          v-bind:selected='$index === 14'
+        ) {{ class }}
     p grupa
     select(v-model='group')
       option 1
@@ -16,10 +21,12 @@
       .row.title {{ days[$i]}}
       .row(
         track-by="$index"
-        :class='{ full: lesson.subject, today: $index === actualLesson - 1, active: $index === actualLesson - 1 && $i === today - 1 }'
+        :class='{ full: lesson.subject, empty: !lesson.subject, today: $index === actualLesson - 1, active: $index === actualLesson - 1 && $i === today - 1 }'
         v-for='lesson of day'
       )
         span {{ lesson.subject | removeGroup }}
         div
           span {{ lesson.room }}
           span {{ lesson.teacher }}
+          
+  p {{ error }}
